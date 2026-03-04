@@ -1,0 +1,110 @@
+/* Theme CSS Variables */
+:root {
+  /* Light theme (default) */
+  --theme-background: #ffffff;
+  --theme-surface: #f8f9fa;
+  --theme-text: #212529;
+  --theme-text-secondary: #6c757d;
+  --theme-border: #dee2e6;
+  --theme-primary: #667eea;
+  --theme-secondary: #764ba2;
+  --theme-success: #28a745;
+  --theme-danger: #dc3545;
+  --theme-warning: #ffc107;
+  --theme-info: #17a2b8;
+  
+  /* Gradients */
+  --theme-gradient-primary: linear-gradient(135deg, var(--theme-primary) 0%, var(--theme-secondary) 100%);
+  --theme-gradient-success: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+  --theme-gradient-danger: linear-gradient(135deg, #dc3545 0%, #ff6b6b 100%);
+  
+  /* Shadows */
+  --theme-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+  --theme-shadow-md: 0 4px 15px rgba(0, 0, 0, 0.1);
+  --theme-shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.15);
+  --theme-shadow-primary: 0 4px 15px rgba(102, 126, 234, 0.3);
+  
+  /* Transitions */
+  --theme-transition-fast: 0.2s ease;
+  --theme-transition-normal: 0.3s ease;
+  --theme-transition-slow: 0.5s ease;
+  
+  /* Border radius */
+  --theme-radius-sm: 6px;
+  --theme-radius-md: 8px;
+  --theme-radius-lg: 12px;
+  --theme-radius-xl: 16px;
+  --theme-radius-full: 9999px;
+  
+  /* Spacing */
+  --theme-space-xs: 0.25rem;
+  --theme-space-sm: 0.5rem;
+  --theme-space-md: 1rem;
+  --theme-space-lg: 1.5rem;
+  --theme-space-xl: 2rem;
+  
+  /* Typography */
+  --theme-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  --theme-font-size-xs: 0.75rem;
+  --theme-font-size-sm: 0.875rem;
+  --theme-font-size-md: 1rem;
+  --theme-font-size-lg: 1.125rem;
+  --theme-font-size-xl: 1.25rem;
+  --theme-font-size-2xl: 1.5rem;
+  --theme-font-size-3xl: 2rem;
+  
+  /* Z-index */
+  --theme-z-dropdown: 1000;
+  --theme-z-sticky: 1020;
+  --theme-z-fixed: 1030;
+  --theme-z-modal: 1040;
+  --theme-z-popover: 1050;
+  --theme-z-tooltip: 1060;
+}
+
+/* Dark theme */
+.dark-theme {
+  --theme-background: #1a1a1a;
+  --theme-surface: #2d2d2d;
+  --theme-text: #ffffff;
+  --theme-text-secondary: #b0b0b0;
+  --theme-border: #404040;
+  --theme-primary: #9ae6b4;
+  --theme-secondary: #b794f4;
+  
+  /* Adjust shadows for dark mode */
+  --theme-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --theme-shadow-md: 0 4px 15px rgba(0, 0, 0, 0.4);
+  --theme-shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.5);
+  --theme-shadow-primary: 0 4px 15px rgba(154, 230, 180, 0.2);
+}
+
+/* High contrast theme */
+@media (prefers-contrast: high) {
+  :root {
+    --theme-border: #000000;
+    --theme-text: #000000;
+    --theme-text-secondary: #333333;
+  }
+  
+  .dark-theme {
+    --theme-border: #ffffff;
+    --theme-text: #ffffff;
+    --theme-text-secondary: #cccccc;
+  }
+}
+
+/* Theme transition animations */
+.theme-transitioning * {
+  transition: background-color 0.3s ease,
+              color 0.3s ease,
+              border-color 0.3s ease,
+              box-shadow 0.3s ease !important;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .theme-transitioning * {
+    transition: none !important;
+  }
+}

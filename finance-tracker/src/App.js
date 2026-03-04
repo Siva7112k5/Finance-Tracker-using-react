@@ -1,76 +1,200 @@
-import Header from './components/Header';
-import Balance from './components/Balance';
-import AddTransaction from './components/AddTransaction'; // 1. Import it
+// src/App.js
+import React, { useState, lazy, Suspense } from 'react';
+import Balance from './components/Balance/Balance';
+import TransactionList from './components/TransactionList/TransactionList';
+import AddTransaction from './components/AddTransaction/AddTransaction';
+import Summary from './components/Summary/Summary';
+import { Button, LoadingSpinner } from './components/UI';
+import useLocalStorage from './hooks/useLocalStorage';
+import useTheme from './hooks/useTheme';
+import { STORAGE_KEYS } from './utils/constants';
+import { calculateTotals } from './utils/calculations';
 import './App.css';
 
-import React, { useState, useEffect } from 'react'; // Add useEffect here
+// Lazy load less critical components
+const Analytics = lazy(() => import('./components/Analytics/Analytics'));
+const Settings = lazy(() => import('./components/Settings/Settings'));
 
 function App() {
-  // 1. Initialize state from LocalStorage or empty array
-  const [transactions, setTransactions] = useState(() => {
-    const saved = localStorage.getItem('transactions');
-    return saved ? JSON.parse(saved) : [];
-  });
+  const [transactions, setTransactions] = useLocalStorage(STORAGE_KEYS.TRANSACTIONS, []);
+  const [activeTab, setActiveTab] = useState('dashboard');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { toggleTheme, isDarkMode } = useTheme();
 
-  // 2. Save transactions to LocalStorage whenever they change
-  useEffect(() => {
-    localStorage.setItem('transactions', JSON.stringify(transactions));
-  }, [transactions]);
+  const totals = calculateTotals(transactions);
 
-  const addTransaction = (transaction) => {
-    setTransactions([...transactions, transaction]);
+  const handleAddTransaction = (newTransaction) => {
+    setTransactions(prev => [newTransaction, ...prev]);
   };
-  // Function to delete transaction
-const deleteTransaction = (id) => {
-  setTransactions(transactions.filter(transaction => transaction.id !== id));
-};
-// Add this logic before the return statement
-const amounts = transactions.map(transaction => transaction.amount);
-const income = amounts
-  .filter(item => item > 0)
-  .reduce((acc, item) => (acc += item), 0)
-  .toFixed(2);
 
-const expense = (
-  amounts.filter(item => item < 0).reduce((acc, item) => (acc += item), 0) * -1
-).toFixed(2);
+  const handleDeleteTransaction = (id) => {
+    setTransactions(prev => prev.filter(t => t.id !== id));
+  };
 
-// Update your JSX to show these values
-<div className="inc-exp-container">
-  <div>
-    <h4>Income</h4>
-    <p className="money plus">+${income}</p>
-  </div>
-  <div>
-    <h4>Expense</h4>
-    <p className="money minus">-${expense}</p>
-  </div>
-</div>
+  const handleEditTransaction = (updatedTransaction) => {
+    setTransactions(prev => 
+      prev.map(t => t.id === updatedTransaction.id ? updatedTransaction : t)
+    );
+  };
+
   return (
-    <div className="container">
-      <Header />
-      <div className="inc-exp-container">
-        <Balance transactions={transactions} />
-      </div>
-      
-      <h3>History</h3>
-      <ul className="list">
-  {transactions.map(item => (
-    <li key={item.id} className={item.amount < 0 ? 'minus' : 'plus'}>
-      {item.text} 
-      <span>{item.amount < 0 ? '-' : '+'}${Math.abs(item.amount)}</span>
-      <button 
-        onClick={() => deleteTransaction(item.id)} 
-        className="delete-btn"
-      >
-        x
-      </button>
-    </li>
-  ))}
-</ul>
+    <div className={`app ${isDarkMode ? 'dark' : 'light'}`}>
+      {/* Professional Navbar */}
+      <nav className="navbar">
+        <div className="nav-container">
+          <div className="nav-left">
+            <div className="logo">
+              <span className="logo-icon">💰</span>
+              <span className="logo-text">FinanTrack</span>
+            </div>
+            
+            <div className={`nav-links ${isMobileMenuOpen ? 'active' : ''}`}>
+              <button 
+                className={`nav-link ${activeTab === 'dashboard' ? 'active' : ''}`}
+                onClick={() => {
+                  setActiveTab('dashboard');
+                  setIsMobileMenuOpen(false);
+                }}
+              >
+                Home
+              </button>
+              <button 
+                className={`nav-link ${activeTab === 'analytics' ? 'active' : ''}`}
+                onClick={() => {
+                  setActiveTab('analytics');
+                  setIsMobileMenuOpen(false);
+                }}
+              >
+                Analytics
+              </button>
+              <button 
+                className={`nav-link ${activeTab === 'settings' ? 'active' : ''}`}
+                onClick={() => {
+                  setActiveTab('settings');
+                  setIsMobileMenuOpen(false);
+                }}
+              >
+                Settings
+              </button>
+              <a href="#about" className="nav-link">About</a>
+              <a href="#contact" className="nav-link">Contact</a>
+            </div>
+          </div>
 
-      {/* 3. Pass the function as a prop */}
-      <AddTransaction addTransaction={addTransaction} />
+          <div className="nav-right">
+            <button className="theme-toggle" onClick={toggleTheme}>
+              {isDarkMode ? '☀️' : '🌙'}
+            </button>
+            <button className="mobile-menu-btn" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+              {isMobileMenuOpen ? '✕' : '☰'}
+            </button>
+          </div>
+        </div>
+      </nav>
+
+      {/* Main Content */}
+      <main className="main-content">
+        <div className="container">
+          {activeTab === 'dashboard' && (
+            <>
+              {/* Welcome Banner */}
+              <div className="welcome-banner">
+                <h1>Welcome back, User! 👋</h1>
+                <p>Track your finances and achieve your financial goals</p>
+              </div>
+
+              {/* Stats Overview */}
+              <div className="stats-overview">
+                <div className="stat-card">
+                  <span className="stat-label">Total Balance</span>
+                  <span className={`stat-value ${totals.balance >= 0 ? 'positive' : 'negative'}`}>
+                    ${totals.balance.toFixed(2)}
+                  </span>
+                </div>
+                <div className="stat-card">
+                  <span className="stat-label">Income</span>
+                  <span className="stat-value income">${totals.totalIncome.toFixed(2)}</span>
+                </div>
+                <div className="stat-card">
+                  <span className="stat-label">Expenses</span>
+                  <span className="stat-value expense">${totals.totalExpenses.toFixed(2)}</span>
+                </div>
+                <div className="stat-card">
+                  <span className="stat-label">Transactions</span>
+                  <span className="stat-value">{transactions.length}</span>
+                </div>
+              </div>
+
+              {/* Main Dashboard Grid */}
+              <div className="dashboard-grid">
+                <div className="dashboard-main">
+                  <AddTransaction 
+                    setTransactions={handleAddTransaction}
+                    onEditComplete={handleEditTransaction}
+                  />
+                  <TransactionList 
+                    transactions={transactions}
+                    onDelete={handleDeleteTransaction}
+                    onEdit={handleEditTransaction}
+                  />
+                </div>
+                <div className="dashboard-sidebar">
+                  <Balance 
+                    total={totals.balance}
+                    income={totals.totalIncome}
+                    expenses={totals.totalExpenses}
+                  />
+                  <Summary transactions={transactions} />
+                </div>
+              </div>
+            </>
+          )}
+
+          {activeTab === 'analytics' && (
+            <Suspense fallback={<LoadingSpinner />}>
+              <Analytics transactions={transactions} totals={totals} />
+            </Suspense>
+          )}
+
+          {activeTab === 'settings' && (
+            <Suspense fallback={<LoadingSpinner />}>
+              <Settings />
+            </Suspense>
+          )}
+        </div>
+      </main>
+
+      {/* Footer */}
+      <footer className="footer">
+        <div className="container">
+          <div className="footer-content">
+            <div className="footer-section">
+              <h3>FinanTrack</h3>
+              <p>Your personal finance companion for a better financial future.</p>
+            </div>
+            <div className="footer-section">
+              <h4>Quick Links</h4>
+              <ul>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#privacy">Privacy Policy</a></li>
+                <li><a href="#terms">Terms of Service</a></li>
+              </ul>
+            </div>
+            <div className="footer-section">
+              <h4>Connect With Us</h4>
+              <div className="social-links">
+                <a href="#twitter">🐦 Twitter</a>
+                <a href="#linkedin">💼 LinkedIn</a>
+                <a href="#github">💻 GitHub</a>
+              </div>
+            </div>
+          </div>
+          <div className="footer-bottom">
+            <p>&copy; 2024 FinanTrack. All rights reserved.</p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }

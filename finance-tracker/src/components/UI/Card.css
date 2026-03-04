@@ -1,0 +1,161 @@
+/* Card Component Styles */
+.ui-card {
+  background: white;
+  border-radius: 16px;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+/* Variants */
+.ui-card-default {
+  background: white;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.ui-card-outlined {
+  background: transparent;
+  border: 2px solid #e0e0e0;
+}
+
+.ui-card-elevated {
+  background: white;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+}
+
+.ui-card-glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.ui-card-gradient {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+/* Padding */
+.ui-card-padding-none {
+  padding: 0;
+}
+
+.ui-card-padding-small {
+  padding: 1rem;
+}
+
+.ui-card-padding-normal {
+  padding: 1.5rem;
+}
+
+.ui-card-padding-large {
+  padding: 2rem;
+}
+
+/* Elevation */
+.ui-card-elevation-low {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.ui-card-elevation-medium {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.ui-card-elevation-high {
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+.ui-card-elevation-none {
+  box-shadow: none;
+}
+
+/* Interactive */
+.ui-card-interactive {
+  cursor: default;
+}
+
+.ui-card-clickable {
+  cursor: pointer;
+}
+
+.ui-card-clickable:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.ui-card-clickable:active {
+  transform: translateY(-2px);
+}
+
+/* Card header */
+.ui-card-header {
+  padding: 1.5rem 1.5rem 0.5rem 1.5rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.ui-card-header h2,
+.ui-card-header h3,
+.ui-card-header h4 {
+  margin: 0;
+}
+
+/* Card content */
+.ui-card-content {
+  padding: 1.5rem;
+}
+
+/* Card actions */
+.ui-card-actions {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid #e0e0e0;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+  .ui-card-default,
+  .ui-card-elevated {
+    background: #2d2d2d;
+    color: #fff;
+  }
+
+  .ui-card-outlined {
+    border-color: #444;
+  }
+
+  .ui-card-glass {
+    background: rgba(45, 45, 45, 0.8);
+  }
+
+  .ui-card-header {
+    border-color: #444;
+  }
+
+  .ui-card-actions {
+    border-color: #444;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .ui-card-padding-large {
+    padding: 1.5rem;
+  }
+
+  .ui-card-padding-normal {
+    padding: 1rem;
+  }
+
+  .ui-card-clickable:hover {
+    transform: translateY(-2px);
+  }
+}
+
+/* Print styles */
+@media print {
+  .ui-card {
+    box-shadow: none;
+    border: 1px solid #000;
+    break-inside: avoid;
+  }
+}

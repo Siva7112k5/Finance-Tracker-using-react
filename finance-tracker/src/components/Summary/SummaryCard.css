@@ -1,0 +1,195 @@
+.summary-card {
+  background: white;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  cursor: default;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.summary-card[role="button"] {
+  cursor: pointer;
+}
+
+.summary-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
+  border-color: rgba(102, 126, 234, 0.2);
+}
+
+/* Card type variations */
+.summary-card.balance {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.summary-card.income {
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+}
+
+.summary-card.expense {
+  background: linear-gradient(135deg, #dc3545 0%, #ff6b6b 100%);
+}
+
+.summary-card.percentage {
+  background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%);
+}
+
+/* Card header */
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.card-icon {
+  font-size: 1.5rem;
+  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.1));
+}
+
+.card-title {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Card content */
+.card-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 1rem;
+}
+
+.card-value {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: white;
+  line-height: 1.2;
+  word-break: break-word;
+}
+
+/* Value colors */
+.card-value.positive {
+  color: #9ae6b4;
+}
+
+.card-value.negative {
+  color: #feb2b2;
+}
+
+.card-value.income {
+  color: #9ae6b4;
+}
+
+.card-value.expense {
+  color: #feb2b2;
+}
+
+.card-value.percentage {
+  color: #ffe083;
+}
+
+/* Trend indicator */
+.card-trend {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  font-size: 0.8rem;
+  backdrop-filter: blur(5px);
+}
+
+.trend-icon {
+  font-weight: bold;
+}
+
+.trend-value {
+  font-weight: 500;
+}
+
+.positive-trend {
+  color: #9ae6b4;
+}
+
+.negative-trend {
+  color: #feb2b2;
+}
+
+/* Sparkline */
+.card-sparkline {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 40px;
+  margin-top: 1rem;
+  opacity: 0.5;
+}
+
+.sparkline-bar {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 2px 2px 0 0;
+  transition: height 0.3s ease;
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+  .summary-card:not([class*="balance income expense percentage"]) {
+    background: #363636;
+    border-color: #444;
+  }
+
+  .card-title {
+    color: rgba(255, 255, 255, 0.8);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .summary-card {
+    padding: 1rem;
+  }
+
+  .card-value {
+    font-size: 1.4rem;
+  }
+
+  .card-icon {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .card-content {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: flex-start;
+  }
+}
+
+/* Animation */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(102, 126, 234, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(102, 126, 234, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(102, 126, 234, 0);
+  }
+}
+
+.summary-card:focus-visible {
+  outline: none;
+  animation: pulse 1.5s infinite;
+}

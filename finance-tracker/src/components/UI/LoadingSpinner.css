@@ -1,0 +1,134 @@
+/* LoadingSpinner Component Styles */
+.ui-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+/* Fullscreen */
+.ui-spinner-fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.9);
+  z-index: 9999;
+}
+
+/* Animation */
+.ui-spinner-animation {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.spinner-circle {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  animation: spinner-bounce 1.4s infinite ease-in-out both;
+}
+
+.spinner-circle:nth-child(1) {
+  animation-delay: -0.32s;
+}
+
+.spinner-circle:nth-child(2) {
+  animation-delay: -0.16s;
+}
+
+@keyframes spinner-bounce {
+  0%, 80%, 100% {
+    transform: scale(0);
+  }
+  40% {
+    transform: scale(1);
+  }
+}
+
+/* Sizes */
+.ui-spinner-small .spinner-circle {
+  width: 0.6rem;
+  height: 0.6rem;
+}
+
+.ui-spinner-small .ui-spinner-text {
+  font-size: 0.85rem;
+}
+
+.ui-spinner-medium .spinner-circle {
+  width: 1rem;
+  height: 1rem;
+}
+
+.ui-spinner-medium .ui-spinner-text {
+  font-size: 1rem;
+}
+
+.ui-spinner-large .spinner-circle {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.ui-spinner-large .ui-spinner-text {
+  font-size: 1.2rem;
+}
+
+/* Colors */
+.ui-spinner-primary .spinner-circle {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.ui-spinner-secondary .spinner-circle {
+  background: #6c757d;
+}
+
+.ui-spinner-success .spinner-circle {
+  background: #28a745;
+}
+
+.ui-spinner-danger .spinner-circle {
+  background: #dc3545;
+}
+
+.ui-spinner-warning .spinner-circle {
+  background: #ffc107;
+}
+
+.ui-spinner-white .spinner-circle {
+  background: white;
+}
+
+/* Text */
+.ui-spinner-text {
+  color: #666;
+  font-weight: 500;
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+  .ui-spinner-fullscreen {
+    background: rgba(0, 0, 0, 0.9);
+  }
+
+  .ui-spinner-text {
+    color: #999;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .spinner-circle {
+    animation: none;
+    opacity: 0.5;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .ui-spinner-fullscreen {
+    position: absolute;
+  }
+}

@@ -1,0 +1,380 @@
+.add-transaction {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  max-width: 600px; /* Limit maximum width */
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+  .add-transaction {
+    background: #2d2d2d;
+    color: #fff;
+  }
+}
+
+.add-transaction h3 {
+  margin: 0 0 1.5rem 0;
+  color: #333;
+  font-size: 1.25rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Dark mode heading */
+@media (prefers-color-scheme: dark) {
+  .add-transaction h3 {
+    color: #fff;
+  }
+}
+
+.transaction-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* Type Toggle Styles - Better for large screens */
+.type-toggle {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.type-option {
+  position: relative;
+  cursor: pointer;
+  width: 100%;
+}
+
+.type-option input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.type-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+  width: 100%;
+  text-align: center;
+  font-size: 1rem;
+}
+
+.type-indicator.expense {
+  background: #fee;
+  color: #dc3545;
+}
+
+.type-indicator.income {
+  background: #efe;
+  color: #28a745;
+}
+
+.type-option.active .type-indicator.expense {
+  background: #dc3545;
+  color: white;
+  border-color: #dc3545;
+}
+
+.type-option.active .type-indicator.income {
+  background: #28a745;
+  color: white;
+  border-color: #28a745;
+}
+
+.type-option:hover .type-indicator {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Form Group Styles */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-weight: 500;
+  color: #555;
+  font-size: 0.9rem;
+}
+
+/* Dark mode label */
+@media (prefers-color-scheme: dark) {
+  .form-group label {
+    color: #ccc;
+  }
+}
+
+.required {
+  color: #dc3545;
+  margin-left: 2px;
+}
+
+/* Amount Input Wrapper */
+.amount-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.currency-symbol {
+  position: absolute;
+  left: 12px;
+  color: #666;
+  font-weight: 500;
+  z-index: 1;
+}
+
+.amount-input-wrapper input {
+  padding-left: 28px !important;
+  width: 100%;
+}
+
+/* Error States */
+input.error {
+  border-color: #dc3545 !important;
+  background-color: #fff8f8;
+}
+
+.error-message {
+  color: #dc3545;
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+}
+
+/* Quick Amount Selector - Better grid layout */
+.quick-amounts {
+  margin-top: 0.5rem;
+}
+
+.quick-label {
+  display: block;
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 0.5rem;
+}
+
+.quick-buttons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  gap: 0.5rem;
+}
+
+.quick-btn {
+  background: #f0f0f0;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+  min-width: 70px;
+}
+
+.quick-btn:hover {
+  background: #e0e0e0;
+  transform: translateY(-1px);
+}
+
+.quick-btn:active {
+  transform: translateY(0);
+}
+
+/* Submit Button */
+.submit-btn {
+  width: 100%;
+  padding: 1rem !important;
+  font-weight: 600 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 0.5rem;
+  transition: all 0.3s ease;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.submit-btn.expense {
+  background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+  color: white;
+}
+
+.submit-btn.income {
+  background: linear-gradient(135deg, #28a745 0%, #218838 100%);
+  color: white;
+}
+
+.submit-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Dark mode quick buttons */
+@media (prefers-color-scheme: dark) {
+  .quick-btn {
+    background: #444;
+    color: #fff;
+  }
+
+  .quick-btn:hover {
+    background: #555;
+  }
+
+  .quick-label {
+    color: #ccc;
+  }
+}
+
+/* ============================================
+   RESPONSIVE DESIGN IMPROVEMENTS
+   ============================================ */
+
+/* Large screens (1200px and above) */
+@media (min-width: 1200px) {
+  .add-transaction {
+    max-width: 500px; /* Smaller max-width for very large screens */
+    padding: 2rem;
+  }
+
+  .type-indicator {
+    padding: 1rem;
+    font-size: 1.1rem;
+  }
+
+  .quick-buttons {
+    grid-template-columns: repeat(4, 1fr); /* Fixed 4 columns on large screens */
+  }
+}
+
+/* Medium screens (768px to 1199px) */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .add-transaction {
+    max-width: 550px;
+    padding: 1.75rem;
+  }
+
+  .type-indicator {
+    padding: 0.85rem;
+  }
+
+  .quick-buttons {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Small screens (576px to 767px) */
+@media (min-width: 576px) and (max-width: 767px) {
+  .add-transaction {
+    max-width: 100%;
+    padding: 1.5rem;
+  }
+
+  .quick-buttons {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns on small tablets */
+  }
+}
+
+/* Extra small screens (below 576px) */
+@media (max-width: 575px) {
+  .add-transaction {
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+  }
+
+  .add-transaction h3 {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+
+  .type-toggle {
+    gap: 0.5rem;
+  }
+
+  .type-indicator {
+    padding: 0.6rem;
+    font-size: 0.9rem;
+  }
+
+  .quick-buttons {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns on mobile */
+    gap: 0.4rem;
+  }
+
+  .quick-btn {
+    padding: 0.4rem 0.5rem;
+    font-size: 0.85rem;
+    min-width: auto;
+  }
+
+  .submit-btn {
+    padding: 0.85rem !important;
+    font-size: 0.95rem;
+  }
+
+  .form-group label {
+    font-size: 0.85rem;
+  }
+}
+
+/* Landscape mode on mobile */
+@media (max-height: 500px) and (orientation: landscape) {
+  .add-transaction {
+    padding: 0.75rem;
+  }
+
+  .transaction-form {
+    gap: 0.75rem;
+  }
+
+  .type-toggle {
+    margin-bottom: 0;
+  }
+
+  .quick-amounts {
+    margin-top: 0;
+  }
+}
+
+/* High-resolution screens */
+@media (min-width: 1600px) {
+  .add-transaction {
+    max-width: 450px; /* Even smaller on very high-res screens */
+  }
+}
+
+/* Print styles */
+@media print {
+  .add-transaction {
+    box-shadow: none;
+    border: 1px solid #000;
+    max-width: 100%;
+  }
+
+  .quick-amounts,
+  .submit-btn {
+    display: none;
+  }
+}
